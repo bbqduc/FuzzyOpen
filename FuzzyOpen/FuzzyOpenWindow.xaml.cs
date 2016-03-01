@@ -41,47 +41,13 @@ namespace OpenDialogTest
 
 	public partial class TestWindow : System.Windows.Window
 	{
-		class cProjectItemWithMaskComparer : System.Collections.Generic.IEqualityComparer<cProjectItemWithMask>
-		{
-			public bool Equals(cProjectItemWithMask x, cProjectItemWithMask y)
-			{
-				return x.mItem == y.mItem;
-			}
-
-			public int GetHashCode(cProjectItemWithMask obj)
-			{
-				return obj.mItem.GetHashCode();
-			}
-		}
-		class cProjectItemWithMask
-		{
-			public UInt64 mMask;
-			public ProjectItem mItem;
-			internal cProjectItemWithMask(ProjectItem item)
-			{
-				mMask = sGetMask(item.Name);
-				mItem = item;
-			}
-			internal static UInt64 sGetMask(string name)
-			{
-				UInt64 mask = 0;
-				foreach (char c in name)
-				{
-					int code = (int)System.Char.ToLower(c) - (int)'a';
-					if(code < 64 && code >= 0) 
-						mask |= (1u << code);
-				}
-				return mask;
-			}
-		}
-
 		IVsUIShell mShell;
-		System.Collections.Generic.HashSet<cProjectItemWithMask> mAllItems = new System.Collections.Generic.HashSet<cProjectItemWithMask>(new cProjectItemWithMaskComparer());
-		public TestWindow(IVsUIShell shell)
+        System.Collections.Generic.HashSet<cProjectItemWithMask> mAllItems;
+		internal TestWindow(IVsUIShell shell, System.Collections.Generic.HashSet<cProjectItemWithMask> allitems)
 		{
+            mAllItems = allitems;
 			mShell = shell;
 			InitializeComponent();
-			mLoadAllFiles();
 			fileNamesGrid.MouseDoubleClick += ListBox_MouseDoubleClick;
 			inputTextBox.TextChanged += TextBox_TextChanged;
 			inputTextBox.KeyDown += TextBox_KeyDown;
@@ -167,7 +133,6 @@ namespace OpenDialogTest
 					return;
 				}
 			}
-			//System.Threading.Tasks.Task.Factory.StartNew(() => mGetSuggestions(text, list, this, newtokensource.Token));
 			var token = newinfo.mTokenSource.Token;
 			System.Threading.Tasks.Task.Run(() => mGetSuggestions(newinfo, this, token), newinfo.mTokenSource.Token);
 		}
@@ -198,7 +163,7 @@ namespace OpenDialogTest
 					if(c == pattern[i])
 						break;
 					if(i == 1 && c == pattern[0]) // change match start to this one for shortest match
-					{
+					{ // TODO : has trouble with repeats in pattern (e.g. "aaaaaa")
 						matchstart = matchlength + matchstart;
 						matchlength = 1;
 					}
@@ -230,42 +195,6 @@ namespace OpenDialogTest
 		private void ListBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
 			mOpenSelectedSuggestion();
-		}
-
-		private void mLoadAllFiles()
-		{
-			var dte = FuzzyOpenPackage.GetGlobalService(typeof(DTE)) as EnvDTE80.DTE2;
-			if (dte == null)
-				System.Windows.MessageBox.Show("Could not get DTE object.");
-			else
-			{
-				var solution = dte.Solution;
-				if (!solution.IsOpen)
-					System.Windows.MessageBox.Show("No solution currently open.");
-				else
-				{
-					mAllItems.Clear();
-					foreach (Project p in solution.Projects)
-					{
-						if(p.ProjectItems != null)
-							foreach (ProjectItem pi in p.ProjectItems)
-								GetFiles(pi, mAllItems);
-					}
-				}
-			}
-		}
-
-		private void GetFiles(ProjectItem item, System.Collections.Generic.HashSet<cProjectItemWithMask> outitems)
-		{
-			if (System.Guid.Parse(item.Kind) == Microsoft.VisualStudio.VSConstants.ItemTypeGuid.PhysicalFile_guid)
-				outitems.Add(new cProjectItemWithMask(item));
-			if (item.ProjectItems != null)
-				foreach (ProjectItem i in item.ProjectItems)
-				{
-					if (System.Guid.Parse(i.Kind) == Microsoft.VisualStudio.VSConstants.ItemTypeGuid.PhysicalFile_guid)
-						outitems.Add(new cProjectItemWithMask(i));
-					GetFiles(i, outitems);
-				}
 		}
 	}
 }
