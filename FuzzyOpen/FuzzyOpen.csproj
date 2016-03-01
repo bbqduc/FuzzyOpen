@@ -69,6 +69,10 @@
     <VSCTCompile Include="FuzzyOpenPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\FuzzyOpenCommand.png" />
     <Content Include="Resources\FuzzyOpenPackage.ico" />
   </ItemGroup>
