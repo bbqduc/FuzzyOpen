@@ -110,7 +110,7 @@ namespace FuzzyOpen
 			var newinfo = new cTaskInfo();
 			var oldinfo=System.Threading.Interlocked.Exchange(ref mTaskInfo, newinfo);
 			bool refresh=true;
-			newinfo.mPattern = inputTextBox.Text;
+			newinfo.mPattern = inputTextBox.Text.ToLowerInvariant();
 			if (oldinfo != null)
 			{
 				oldinfo.mTokenSource.Cancel();
@@ -145,7 +145,7 @@ namespace FuzzyOpen
 		{
 				Dispatcher.Invoke(() =>
 				{
-					if (inputTextBox.Text == pattern)
+					if (inputTextBox.Text.ToLowerInvariant() == pattern)
 					{
 						fileNamesGrid.ItemsSource = newsuggestions.GetRange(0, Math.Min(10, newsuggestions.Count));
 						fileNamesGrid.SelectedIndex = -1;
