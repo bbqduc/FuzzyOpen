@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace OpenDialogTest
+namespace FuzzyOpen
 {
 	using EnvDTE;
 	using Microsoft.VisualStudio.Shell.Interop;
@@ -45,7 +45,7 @@ namespace OpenDialogTest
         System.Collections.Generic.HashSet<cProjectItemWithMask> mAllItems;
 		internal TestWindow(IVsUIShell shell, System.Collections.Generic.HashSet<cProjectItemWithMask> allitems)
 		{
-            mAllItems = allitems;
+			mAllItems = allitems;
 			mShell = shell;
 			InitializeComponent();
 			fileNamesGrid.MouseDoubleClick += ListBox_MouseDoubleClick;
@@ -78,6 +78,8 @@ namespace OpenDialogTest
 				mOpenSelectedSuggestion();
 		}
 
+		public Window mWindowToOpen = null;
+
 		private void mOpenSelectedSuggestion()
 		{
 			var suggestions = (System.Collections.Generic.List<cSuggestion>)fileNamesGrid.ItemsSource;
@@ -86,8 +88,10 @@ namespace OpenDialogTest
 				int index = fileNamesGrid.SelectedIndex;
 				if (index == -1) index = 0;
 				var item = suggestions[index].mItem;
-				var window = item.Open(EnvDTE.Constants.vsViewKindCode);
-				window.Visible = true;
+				//var window = item.Open(EnvDTE.Constants.vsViewKindCode);
+				mWindowToOpen = item.Open(EnvDTE.Constants.vsViewKindCode);
+				//window.Visible = true;
+				//window.Activate();
 				Close();
 			}
 		}

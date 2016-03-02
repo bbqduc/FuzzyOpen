@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="FuzzyOpenFile.Johannes Ylinen.cbbbdf66-838d-4124-b767-35dac4c25a64" Version="0.1" Language="en-US" Publisher="Johannes Ylinen" />
-    <DisplayName>FuzzyOpenFile</DisplayName>
-    <Description xml:space="preserve">Dialog for opening files in a solution with fuzzy string search.</Description>
-    <MoreInfo>https://github.com/bbqduc/FuzzyOpen</MoreInfo>
-    <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/bbqduc/FuzzyOpen</GettingStartedGuide>
-    <Tags>fuzzy file open</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[12.0, 14.0]" />
-  </Installation>
-  <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0,13.0)" />
-  </Dependencies>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+	<Metadata>
+		<Identity Id="FuzzyOpenFile.Johannes Ylinen.cbbbdf66-838d-4124-b767-35dac4c25a64" Version="0.2" Language="en-US" Publisher="Johannes Ylinen" />
+		<DisplayName>FuzzyOpenFile</DisplayName>
+		<Description xml:space="preserve">Dialog for opening files in a solution with fuzzy string search.</Description>
+		<MoreInfo>https://github.com/bbqduc/FuzzyOpen</MoreInfo>
+		<License>LICENSE.txt</License>
+		<GettingStartedGuide>https://github.com/bbqduc/FuzzyOpen</GettingStartedGuide>
+		<Tags>fuzzy file open</Tags>
+	</Metadata>
+	<Installation>
+		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[12.0, 14.0]" />
+	</Installation>
+	<Dependencies>
+		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+		<Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0,13.0)" />
+	</Dependencies>
+	<Assets>
+		<Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+	</Assets>
 </PackageManifest>
