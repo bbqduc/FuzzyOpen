@@ -10,6 +10,9 @@
 	<StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" FocusManager.FocusedElement="{Binding ElementName=inputTextBox}">
 		<TextBox x:Name="inputTextBox" HorizontalAlignment="Stretch" Height="20" TextWrapping="Wrap" Text="" MinWidth="100"/>
 		<DataGrid x:Name="fileNamesGrid" HeadersVisibility="None" SelectionMode="Single" SelectionUnit="FullRow">
+			<DataGrid.Resources>
+				<SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="LightSkyBlue"/>
+			</DataGrid.Resources>
 		</DataGrid>
 	</StackPanel>
 </Window>

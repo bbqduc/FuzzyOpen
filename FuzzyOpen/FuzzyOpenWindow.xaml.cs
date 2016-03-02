@@ -131,8 +131,8 @@ namespace FuzzyOpen
 				if(newinfo.mPattern.Length<=1) // no point in doing more complicated fuzzing
 				{
 					fileNamesGrid.ItemsSource = newinfo.mSuggestions.GetRange(0, Math.Min(10, newinfo.mSuggestions.Count));
-					fileNamesGrid.ItemsSource = newinfo.mSuggestions.GetRange(0, Math.Min(10, newinfo.mSuggestions.Count));
-					fileNamesGrid.SelectedIndex = -1;
+                    fileNamesGrid.SelectedItem = null;
+                    fileNamesGrid.SelectedIndex = 0;
 					newinfo.mDone = true;
 					return;
 				}
@@ -148,8 +148,9 @@ namespace FuzzyOpen
 					if (inputTextBox.Text.ToLowerInvariant() == pattern)
 					{
 						fileNamesGrid.ItemsSource = newsuggestions.GetRange(0, Math.Min(10, newsuggestions.Count));
-						fileNamesGrid.SelectedIndex = -1;
-						fileNamesGrid.ItemsSource = newsuggestions.GetRange(0, Math.Min(10, newsuggestions.Count));
+                        fileNamesGrid.SelectedItem = null;
+						fileNamesGrid.SelectedIndex = 0;// newsource.Count == 0 ? -1 : 0;
+						//System.Windows.Data.CollectionViewSource.GetDefaultView(fileNamesGrid.ItemsSource).Refresh();
 					}
 				});
 		}
