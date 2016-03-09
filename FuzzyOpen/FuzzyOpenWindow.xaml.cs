@@ -88,10 +88,7 @@ namespace FuzzyOpen
 				int index = fileNamesGrid.SelectedIndex;
 				if (index == -1) index = 0;
 				var item = suggestions[index].mItem;
-				//var window = item.Open(EnvDTE.Constants.vsViewKindCode);
-				mWindowToOpen = item.Open(EnvDTE.Constants.vsViewKindCode);
-				//window.Visible = true;
-				//window.Activate();
+				mWindowToOpen = item.Open(EnvDTE.Constants.vsViewKindPrimary);
 				Close();
 			}
 		}

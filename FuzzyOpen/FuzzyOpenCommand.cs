@@ -247,7 +247,12 @@ namespace FuzzyOpen
 			{
 				Microsoft.Internal.VisualStudio.PlatformUI.WindowHelper.ShowModal(w, hwnd);
 			}
-			finally
+            catch(System.Exception exc)
+            {
+                System.Windows.MessageBox.Show("Opening failed: " + exc.Message, "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                w.mWindowToOpen = null;
+            }
+            finally
 			{
 				uiShell.EnableModeless(1);
 			}
